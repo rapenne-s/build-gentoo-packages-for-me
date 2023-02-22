@@ -1,0 +1,19 @@
+name: build
+
+on:
+    pull_request:
+    push:
+
+jobs:
+    build:
+        strategy:
+            fail-fast: false
+            runs-on: ubuntu:latest
+            name: build packages
+            steps:
+                - name: checkout code
+                  uses: actions/checkout@v2
+                - name: build image
+                  run: docker build -t gentoo/build .
+                - name: run image
+                  run: docker run gentoo/build
