@@ -26,5 +26,3 @@ jobs:
       - uses: addnab/docker-run-action@v3
         with:
             image: solene/gentoo-build-package
-
-# proute
