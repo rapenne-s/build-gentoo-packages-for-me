@@ -13,5 +13,5 @@ jobs:
                   uses: actions/checkout@v2
                 - name: build image
                   run: docker build -t gentoo/build .
-                - name: run image
-                  run: docker run gentoo/build
+                #- name: run image
+                #  run: docker run gentoo/build
