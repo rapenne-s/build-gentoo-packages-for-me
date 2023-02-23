@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Build package
 
 on:
   push:
@@ -10,11 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      -
-        name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-            tags: gentoo-build-package:latest
-      - uses: addnab/docker-run-action@v3
-        with:
-            image: gentoo-build-package
+      - name: Build docker image
+        run: docker build -t gentoo-build-package:latest .
+      - name: Run docker container
+        run: docker run gentoo-build-package:latest
