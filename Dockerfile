@@ -1,9 +1,14 @@
-FROM gentoo/portage:latest as portage
-FROM gentoo/stage3:systemd
+FROM gentoo/stage3:systemd AS build
 
-COPY --from=portage /var/db/repos/gentoo /var/db/repos/gentoo
+# Get the latest portage tree
+COPY --from=gentoo/portage:latest /var/db/repos/gentoo /var/db/repos/gentoo
 
-ADD ./entrypoint.sh /
+# Configune the system
+RUN emerge sys-apps/merge-usr
+RUN merge-usr
+RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 
-CMD [ "bash", "./entrypoint.sh" ]
-# prout ?
+# Rebuild the world
+RUN emerge -quDv --with-bdeps=y --changed-use --newuse @world
+RUN emerge -q app-portage/gentoolkit
+RUN eclean-pkg
