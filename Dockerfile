@@ -9,6 +9,12 @@ RUN merge-usr
 RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 
 # Rebuild the world
-RUN emerge -quDv --with-bdeps=y --changed-use --newuse @world
-RUN emerge -q app-portage/gentoolkit
-RUN eclean-pkg
+RUN emerge --quiet-build --buildpkg --with-bdeps=y @installed
+RUN emerge --quiet-build --buildpkg --with-bdeps=y app-portage/gentoolkit
+
+#COPY entrypoint.sh /bin/entrypoint
+#ENTRYPOINT ["/bin/entrypoint", "--"]
+#CMD rsync -av /var/cache/binpkgs/ /mnt
+
+FROM gentoo/stage3:systemd AS artifacts
+COPY --from=build /var/cache/binpkgs /artifacts
