@@ -22,7 +22,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-            tags: solene/gentoo-build-package:latest
+            tags: gentoo-build-package:latest
       - uses: addnab/docker-run-action@v3
         with:
-            image: solene/gentoo-build-package
+            image: gentoo-build-package
