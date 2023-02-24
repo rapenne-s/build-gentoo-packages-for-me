@@ -15,13 +15,13 @@ build-image:
 
 run-image:
 	docker run \
-		-v $(PWD)/artifacts:/mnt/artifacts \
+		-v $(PWD)/packages:/mnt/packages \
 		$(IMAGE_NAME):$(IMAGE_TAG)
 
 run-shell:
 	docker run \
 		-it \
-		-v $(PWD)/artifacts:/mnt/artifacts \
+		-v $(PWD)/packages:/mnt/packages \
 		$(IMAGE_NAME):$(IMAGE_TAG) \
 		sh
 
