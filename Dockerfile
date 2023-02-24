@@ -1,10 +1,19 @@
+##############################################################################
+# Build image
+#
+# Build all our packages
+##############################################################################
 FROM gentoo/stage3:systemd AS build
 
 # Get the latest portage tree
 COPY --from=gentoo/portage:latest /var/db/repos/gentoo /var/db/repos/gentoo
 
+# Copy our configuration
+COPY etc/portage /etc/portage
+COPY etc/world /var/lib/portage/world
+
 # Configure the system
-RUN emerge sys-apps/merge-usr
+RUN emerge --quiet-build --buildpkg --with-bdeps=y --usepkg sys-apps/merge-usr
 RUN merge-usr
 RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 
@@ -19,14 +28,14 @@ RUN if [ ! -f /var/cache/binpkgs/Packages ]; then \
 # Rebuild the world
 RUN emerge --quiet-build --buildpkg --with-bdeps=y --update --newuse --changed-use --usepkg @world
 
-# Build asked packages
-ARG PACKAGES=
-RUN if [ "x${PACKAGES}" != "x" ]; then \
-        emerge --quiet-build --buildpkg --with-bdeps=y --update --newuse --changed-use --usepkg ${PACKAGES}; \
-    fi
 
-
+##############################################################################
+# Artifacts image
+#
+# Contains all the packages built in the previous image
+##############################################################################
 FROM alpine
 RUN apk add rsync
 COPY --from=build /var/cache/binpkgs /packages
+COPY --from=build /var/lib/portage/world /packages/
 CMD rsync -avPh /packages/ /mnt/packages/

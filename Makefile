@@ -1,16 +1,11 @@
 IMAGE_NAME ?= build-gentoo-packages-for-me
 IMAGE_TAG ?= latest
 
-PACKAGES ?= \
-	app-portage/gentoolkit \
-	app-text/tree
-
 all: build-image
 
 build-image:
 	docker build \
 		-t $(IMAGE_NAME):$(IMAGE_TAG) \
-		--build-arg PACKAGES="$(PACKAGES)" \
 		.
 
 run-image:
