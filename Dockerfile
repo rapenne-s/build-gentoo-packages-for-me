@@ -9,7 +9,7 @@ RUN merge-usr
 RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 
 # Import previously built packages
-COPY --from=killruana/build-gentoo-packages-for-me /artifacts /var/cache/binpkgs
+COPY artifacts /var/cache/binpkgs
 
 # Bootstrap
 RUN if [ ! -f /var/cache/binpkgs/Packages ]; then \
@@ -25,5 +25,8 @@ RUN if [ "x${PACKAGES}" != "x" ]; then \
         emerge --quiet-build --buildpkg --with-bdeps=y --update --newuse --changed-use --usepkg ${PACKAGES}; \
     fi
 
-FROM scratch AS artifacts
+
+FROM alpine AS artifacts
+RUN apk add rsync
 COPY --from=build /var/cache/binpkgs /artifacts
+CMD rsync -avPh /artifacts/ /mnt/artifacts/
