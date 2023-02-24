@@ -9,12 +9,10 @@ RUN merge-usr
 RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 
 # Import previously built packages
-# TODO: import artifacts
-#COPY artifacts /var/cache/binpkgs
 COPY --from=killruana/build-gentoo-packages-for-me /artifacts /var/cache/binpkgs
 
 # Bootstrap
-# RUN emerge --quiet-build --buildpkg --with-bdeps=y @installed
+RUN if [ ! -f /var/cache/binpkgs/Packages ]; then emerge --quiet-build --buildpkg --with-bdeps=y --usepkg @installed; fi
 
 # Rebuild the world
 RUN emerge --quiet-build --buildpkg --with-bdeps=y --update --newuse --changed-use --usepkg @world
