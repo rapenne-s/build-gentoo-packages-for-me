@@ -1,19 +1,24 @@
-name: build
+name: Build package
 
 on:
-    pull_request:
-    push:
+  push:
+  pull_request:
 
 jobs:
-    build:
-        strategy:
-            fail-fast: false
-            runs-on: ubuntu:latest
-            name: build packages
-            steps:
-                - name: checkout code
-                  uses: actions/checkout@v2
-                - name: build image
-                  run: docker build -t gentoo/build .
-                - name: run image
-                  run: docker run gentoo/build
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+      - name: Load packages from cache
+        uses: actions/cache@v3
+        with:
+          path: packages
+          key: packages
+      - name: Build packages
+        run: make build-image
+      - name: Extract packages
+        run: make run-image
+        
