@@ -12,13 +12,18 @@ RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 COPY --from=killruana/build-gentoo-packages-for-me /artifacts /var/cache/binpkgs
 
 # Bootstrap
-RUN if [ ! -f /var/cache/binpkgs/Packages ]; then emerge --quiet-build --buildpkg --with-bdeps=y --usepkg @installed; fi
+RUN if [ ! -f /var/cache/binpkgs/Packages ]; then \
+        emerge --quiet-build --buildpkg --with-bdeps=y --usepkg @installed; \
+    fi
 
 # Rebuild the world
 RUN emerge --quiet-build --buildpkg --with-bdeps=y --update --newuse --changed-use --usepkg @world
 
 # Build asked packages
-RUN emerge --quiet-build --buildpkg --with-bdeps=y --update --newuse --changed-use --usepkg app-portage/gentoolkit
+ARG PACKAGES=
+RUN if [ "x${PACKAGES}" != "x" ]; then \
+        emerge --quiet-build --buildpkg --with-bdeps=y --update --newuse --changed-use --usepkg ${PACKAGES}; \
+    fi
 
 FROM scratch AS artifacts
 COPY --from=build /var/cache/binpkgs /artifacts
