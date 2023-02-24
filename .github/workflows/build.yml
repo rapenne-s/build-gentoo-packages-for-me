@@ -23,4 +23,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build docker image
-        run: make build-image-with-cache-and-push
+        run: make build-image-push

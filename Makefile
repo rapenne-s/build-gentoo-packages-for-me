@@ -6,22 +6,19 @@ CACHE_IMAGE_TAG ?= cache
 all: build-image
 
 build-image:
-	docker build --load -t $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG) .
-
-build-image-with-cache:
-	docker buildx build \
-		--cache-to type=registry,ref=$(IMAGE_REGISTRY)/$(IMAGE_NAME):$(CACHE_IMAGE_TAG) \
+	docker build \
 		--cache-from type=registry,ref=$(IMAGE_REGISTRY)/$(IMAGE_NAME):$(CACHE_IMAGE_TAG) \
-		-t $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG) .
+		-t $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG) \
+		.
 
-build-image-with-cache-and-load:
-	docker buildx build \
-	    --load \
-		--cache-to type=registry,ref=$(IMAGE_REGISTRY)/$(IMAGE_NAME):$(CACHE_IMAGE_TAG) \
+build-image-load:
+	docker build \
+		--load \
 		--cache-from type=registry,ref=$(IMAGE_REGISTRY)/$(IMAGE_NAME):$(CACHE_IMAGE_TAG) \
-		-t $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG) .
+		-t $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG) \
+		.
 
-build-image-with-cache-and-push:
+build-image-push:
 	docker buildx build \
 		--push \
 		--cache-to type=registry,ref=$(IMAGE_REGISTRY)/$(IMAGE_NAME):$(CACHE_IMAGE_TAG) \
@@ -31,7 +28,7 @@ build-image-with-cache-and-push:
 run-image:
 	docker run $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG)
 
-run-image-shell:
+run-shell:
 	docker run -it $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG) bash
 
 pull-image: 
@@ -41,4 +38,4 @@ push-image:
 	docker push $(IMAGE_REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG)
 
 
-.PHONY: all build-image build-image-with-cache build-image-with-cache-and-load build-image-with-cache-and-push run-image run-image-shell pull-image push-image
+.PHONY: all build-image build-image-load build-image-push run-image run-shell pull-image push-image
