@@ -20,7 +20,7 @@ RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 # Import previously built packages
 COPY packages /var/cache/binpkgs
 
-# Build packages of the base system
+# Build the packages
 RUN emerge \
     --deep \
     --update \
@@ -30,33 +30,10 @@ RUN emerge \
     --usepkg \
     --buildpkg \
     --quiet-build \
-    @installed
-
-# Add stuff
-RUN emerge \
-    --deep \
-    --update \
-    --newuse \
-    --changed-use \
-    --with-bdeps=y \
-    --usepkg \
-    --buildpkg \
-    --quiet-build \
+    @world \
     app-portage/gentoolkit
 
-# Build packages asked by the user
-RUN emerge \
-    --deep \
-    --update \
-    --newuse \
-    --changed-use \
-    --with-bdeps=y \
-    --usepkg \
-    --buildpkg \
-    --quiet-build \
-    @world
-
-# Clean packages
+# Clean old packages
 RUN eclean-pkg
 
 
