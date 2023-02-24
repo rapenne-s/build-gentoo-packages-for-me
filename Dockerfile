@@ -26,8 +26,9 @@ RUN emerge \
     --buildpkg \
     --quiet-build \
     sys-apps/merge-usr
-
 RUN merge-usr
+
+# Choose the profile
 RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 
 # Build the packages
@@ -50,12 +51,17 @@ RUN eclean-pkg
 ##############################################################################
 # Artifacts image
 #
-# Contains all the packages built in the previous image
+# Contains all the packages built in the previous image.
+# We do that because the exported image is lighter than the build one
 ##############################################################################
 FROM alpine
 RUN apk add rsync
+
+# Get the artifacts
 COPY --from=build /var/cache/binpkgs /packages
 COPY --from=build /var/lib/portage/world /packages/
+
+# Export the artifacts
 CMD rsync \
     --archive \
     --delete \
