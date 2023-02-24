@@ -1,4 +1,3 @@
 app-editors/neovim
-app-portage/gentoolkit
+app-shells/fish
 app-text/tree
-sys-apps/merge-usr
