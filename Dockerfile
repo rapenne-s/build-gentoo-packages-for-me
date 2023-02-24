@@ -20,13 +20,44 @@ RUN eselect profile set default/linux/amd64/17.1/systemd/merged-usr
 # Import previously built packages
 COPY packages /var/cache/binpkgs
 
-# Bootstrap
-RUN if [ ! -f /var/cache/binpkgs/Packages ]; then \
-        emerge --quiet-build --buildpkg --with-bdeps=y --usepkg @installed; \
-    fi
+# Build packages of the base system
+RUN emerge \
+    --deep \
+    --update \
+    --newuse \
+    --changed-use \
+    --with-bdeps=y \
+    --usepkg \
+    --buildpkg \
+    --quiet-build \
+    @installed
 
-# Rebuild the world
-RUN emerge --quiet-build --buildpkg --with-bdeps=y --update --newuse --changed-use --usepkg @world
+# Add stuff
+RUN emerge \
+    --deep \
+    --update \
+    --newuse \
+    --changed-use \
+    --with-bdeps=y \
+    --usepkg \
+    --buildpkg \
+    --quiet-build \
+    app-portage/gentoolkit
+
+# Build packages asked by the user
+RUN emerge \
+    --deep \
+    --update \
+    --newuse \
+    --changed-use \
+    --with-bdeps=y \
+    --usepkg \
+    --buildpkg \
+    --quiet-build \
+    @world
+
+# Clean packages
+RUN eclean-pkg
 
 
 ##############################################################################
@@ -38,4 +69,7 @@ FROM alpine
 RUN apk add rsync
 COPY --from=build /var/cache/binpkgs /packages
 COPY --from=build /var/lib/portage/world /packages/
-CMD rsync -avPh /packages/ /mnt/packages/
+CMD rsync \
+    --archive \
+    --delete \
+    /packages/ /mnt/packages/
