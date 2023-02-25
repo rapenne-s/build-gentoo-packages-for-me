@@ -1,0 +1,8 @@
+>=dev-libs/libpcre2-10.40 pcre32
+sys-boot/grub mount
+
+# no need for sendmail for sudo
+app-admin/sudo -sendmail -ssl
+
+# for nginx
+>=app-misc/mime-types-2.1.53 nginx

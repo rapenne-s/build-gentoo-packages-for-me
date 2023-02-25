@@ -1,0 +1,6 @@
+app-editors/kakoune ~amd64
+
+# unlock latest kernel
+virtual/dist-kernel ~amd64
+sys-kernel/gentoo-kernel-bin ~amd64
+
