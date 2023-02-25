@@ -10,6 +10,7 @@ dev-vcs/git
 dev-vcs/git-lfs
 dev-vcs/tig
 net-firewall/nftables
+net-fs/samba
 net-misc/rsync
 sys-apps/lm-sensors
 sys-block/zram-init
@@ -18,3 +19,4 @@ sys-fs/btrfs-progs
 sys-fs/compsize
 sys-fs/duperemove
 sys-fs/ncdu
+sys-kernel/gentoo-sources
