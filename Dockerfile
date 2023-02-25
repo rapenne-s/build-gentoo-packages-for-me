@@ -31,6 +31,7 @@ RUN emerge \
     --changed-use \
     --with-bdeps=y \
     --usepkg \
+    --keep-going y \
     --buildpkg \
     --quiet-build \
     @world \
