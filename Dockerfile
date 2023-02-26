@@ -12,6 +12,9 @@ COPY --from=gentoo/portage:latest /var/db/repos/gentoo /var/db/repos/gentoo
 RUN emerge --quiet-build sys-apps/merge-usr
 RUN merge-usr
 
+RUN emerge -v sys-kernel/gentoo-sources
+RUN eselect kernel set 1
+
 # Copy our configuration
 RUN rm -rf /etc/portage
 COPY etc/portage /etc/portage
