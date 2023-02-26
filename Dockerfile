@@ -31,12 +31,11 @@ RUN emerge \
     --deep \
     --update \
     --newuse \
+    --verbose \
     --changed-use \
     --with-bdeps=y \
     --usepkg \
-    --keep-going y \
     --buildpkg \
-    --quiet-build \
     @world \
     app-portage/gentoolkit
 
