@@ -20,4 +20,7 @@ run-shell:
 		$(IMAGE_NAME):$(IMAGE_TAG) \
 		sh
 
-.PHONY: all build-image run-image run-shell
+copy-packages:
+	rsync -av $(PWD)/packages github@maison.perso.pw:/
+
+.PHONY: all build-image run-image run-shell copy-packages
