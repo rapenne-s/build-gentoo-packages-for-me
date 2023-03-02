@@ -18,11 +18,6 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Checkout
         uses: actions/checkout@v3.3.0
-      - name: Load packages from cache
-        uses: actions/cache@v3
-        with:
-          path: packages
-          key: packages
       - name: Build packages
         run: make build-image
       - name: Extract packages
