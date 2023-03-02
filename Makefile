@@ -20,7 +20,10 @@ run-shell:
 		$(IMAGE_NAME):$(IMAGE_TAG) \
 		sh
 
+load-packages:
+	rsync -e "ssh -v -p 2222" -av github@interbus.perso.pw:/var/www/gentoo-packages/ $(PWD)/packages/
+
 copy-packages:
-	rsync -e 'ssh -p 2222' -av $(PWD)/packages github@maison.perso.pw:/home/github/
+	rsync -e "ssh -v -p 2222" -av $(PWD)/packages/ github@interbus.perso.pw:/var/www/gentoo-packages/
 
 .PHONY: all build-image run-image run-shell copy-packages
