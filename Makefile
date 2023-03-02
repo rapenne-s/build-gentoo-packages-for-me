@@ -21,6 +21,6 @@ run-shell:
 		sh
 
 copy-packages:
-	rsync -av $(PWD)/packages github@maison.perso.pw:
+	rsync -av $(PWD)/packages github@maison.perso.pw:2222:/home/github/
 
 .PHONY: all build-image run-image run-shell copy-packages
