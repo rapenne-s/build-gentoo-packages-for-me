@@ -23,10 +23,6 @@ jobs:
         with:
           path: packages
           key: packages
-      - name: Copy packages
-        run: make copy-packages
-      - name: Copy packages
-        run: make load-packages
       - name: Build packages
         run: make build-image
       - name: Extract packages
