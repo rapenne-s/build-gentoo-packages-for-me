@@ -31,7 +31,6 @@ RUN emerge \
     --deep \
     --update \
     --newuse \
-    --verbose \
     --changed-use \
     --with-bdeps=y \
     --usepkg \
