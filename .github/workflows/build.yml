@@ -18,6 +18,8 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Checkout
         uses: actions/checkout@v3.3.0
+      - name: Retrieve packages
+        run: make get-packages
       - name: Build packages
         run: make build-image
       - name: Extract packages

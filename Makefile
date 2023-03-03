@@ -24,6 +24,9 @@ run-shell:
 		$(IMAGE_NAME):$(IMAGE_TAG) \
 		sh
 
+get-packages:
+	rsync -e "ssh -v -p 2222" -av github@interbus.perso.pw:/var/www/gentoo-packages/ $(PWD)/packages/
+
 copy-packages:
 	rsync -e "ssh -v -p 2222" -av $(PWD)/packages/ github@interbus.perso.pw:/var/www/gentoo-packages/
 
