@@ -1,3 +1,5 @@
+app-admin/ansible
+app-admin/sudo
 app-backup/borgbackup
 app-backup/btrbk
 app-containers/docker
@@ -5,11 +7,14 @@ app-containers/docker-cli
 app-editors/kakoune
 app-misc/tmux
 app-shells/fish
+app-shells/fzf
 dev-vcs/fossil
 dev-vcs/git
 dev-vcs/git-lfs
 dev-vcs/tig
+net-dns/bind-tools
 net-firewall/nftables
+net-fs/nfs-utils
 net-fs/samba
 net-misc/rsync
 sys-apps/lm-sensors
@@ -20,3 +25,4 @@ sys-fs/compsize
 sys-fs/duperemove
 sys-fs/ncdu
 sys-kernel/gentoo-sources
+www-servers/nginx
