@@ -46,4 +46,4 @@ CMD rsync \
     --archive \
     --delete \
     --verbose \
-    /packages/ /mnt/packages/
+    /var/cache/binpkgs/ /packages/
