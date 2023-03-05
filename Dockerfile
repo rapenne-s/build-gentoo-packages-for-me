@@ -41,3 +41,5 @@ RUN emerge \
 
 # Clean old packages
 RUN eclean-pkg
+
+COPY --from=build /var/cache/binpkgs /packages
