@@ -8,3 +8,8 @@ app-admin/sudo -sendmail -ssl
 
 # for nginx
 >=app-misc/mime-types-2.1.53 nginx
+
+# make things faster
+dev-lang/python lto pgo
+sys-devel/binutils pgo
+dev-lang/spidermonkey lto
