@@ -1,4 +1,4 @@
-*/* CPU_FLAGS_X86: aes mmx sse sse2 sse3
+*/* CPU_FLAGS_X86: aes mmx sse sse2 sse3 sse4_1 sse4_2
 
 >=dev-libs/libpcre2-10.40 pcre32
 sys-boot/grub mount
