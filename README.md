@@ -11,3 +11,5 @@ Create a file `/etc/portage/binrepos.conf` with the following content:
 priority = 9999
 sync-uri = https://interbus.perso.pw/
 ```
+
+The build is using the following USE flags `"zstd -X -gui pcre32 fish-completion webp fuse"` and the systemd/merged-usr profile.
