@@ -26,6 +26,9 @@ RUN merge-usr
 RUN emerge --quiet-build -v sys-kernel/gentoo-sources
 RUN eselect kernel set 1
 
+# Use rust-bin
+RUN emerge --quiet-build rust-bin
+
 # Build the packages
 RUN emerge \
     --deep \
@@ -42,8 +45,16 @@ RUN emerge \
 # Clean old packages
 RUN eclean-pkg
 
+FROM alpine
+RUN apk add rsync
+
+# Get the artifacts
+COPY --from=build /var/cache/binpkgs /packages
+COPY --from=build /var/lib/portage/world /packages/
+
+# Export the artifacts
 CMD rsync \
     --archive \
     --delete \
     --verbose \
-    /var/cache/binpkgs/ /packages/
+    /packages/ /mnt/packages/
