@@ -39,6 +39,7 @@ RUN emerge \
     --with-bdeps=y \
     --usepkg \
     --buildpkg \
+    --emptytree \
     @unavailable-binaries \
     app-portage/gentoolkit
 
