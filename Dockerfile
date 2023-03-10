@@ -30,7 +30,7 @@ RUN eselect kernel set 1
 RUN emerge --quiet-build rust-bin
 
 # Build the packages that doesn't have a binary
-RUN emerge \
+RUN timeout 330m emerge \
     --deep \
     --update \
     --newuse \
