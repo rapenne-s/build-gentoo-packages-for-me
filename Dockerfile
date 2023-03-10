@@ -29,7 +29,7 @@ RUN eselect kernel set 1
 # Use rust-bin
 RUN emerge --quiet-build rust-bin
 
-# Build the packages
+# Build the packages that doesn't have a binary
 RUN emerge \
     --deep \
     --update \
@@ -39,7 +39,7 @@ RUN emerge \
     --with-bdeps=y \
     --usepkg \
     --buildpkg \
-    @world \
+    @unavailable-binaries \
     app-portage/gentoolkit
 
 # Clean old packages
