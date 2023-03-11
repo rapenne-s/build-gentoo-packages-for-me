@@ -4,3 +4,6 @@ app-editors/kakoune ~amd64
 virtual/dist-kernel ~amd64
 sys-kernel/gentoo-kernel-bin ~amd64
 
+sys-fs/btrfs-progs ~amd64
+net-p2p/syncthing ~amd64
+sys-apps/systemd ~amd64

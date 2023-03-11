@@ -29,8 +29,8 @@ RUN eselect kernel set 1
 # Use rust-bin
 RUN emerge --quiet-build rust-bin
 
-# Build the packages
-RUN emerge \
+# Build the packages that doesn't have a binary
+RUN timeout 330m emerge \
     --deep \
     --update \
     --newuse \
@@ -39,7 +39,8 @@ RUN emerge \
     --with-bdeps=y \
     --usepkg \
     --buildpkg \
-    @world \
+    --emptytree \
+    @unavailable-binaries \
     app-portage/gentoolkit
 
 # Clean old packages

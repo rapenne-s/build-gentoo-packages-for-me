@@ -13,7 +13,7 @@ run-image:
 	# we only have 6h00 of free time for a single build
 	# 5h30 = 330 minutes
 	mkdir -p packages
-	timeout 330m docker run \
+	docker run \
 		-v $(PWD)/packages:/mnt/packages \
 		$(IMAGE_NAME):$(IMAGE_TAG)
 
