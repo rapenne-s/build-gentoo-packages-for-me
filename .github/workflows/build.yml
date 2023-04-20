@@ -1,30 +1,31 @@
-name: Build package
-
-on:
-  push:
-  pull_request:
-  schedule:
-    - cron: '0 4 * * *'
-
-jobs:
-
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH }}
-          name: id_ed25519
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
-      - name: Checkout
-        uses: actions/checkout@v3.3.0
-      - name: Retrieve packages
-        run: make get-packages
-      - name: Build packages
-        run: make build-image
-      - name: Extract packages
-        run: make run-image
-      - name: Copy packages
-        run: make copy-packages
+# not being used, so don't waste CPU to keep earth a bit cooler
+#name: Build package
+#
+#on:
+#  push:
+#  pull_request:
+#  schedule:
+#    - cron: '0 4 * * *'
+#
+#jobs:
+#
+#  build:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Install SSH Key
+#        uses: shimataro/ssh-key-action@v2
+#        with:
+#          key: ${{ secrets.SSH }}
+#          name: id_ed25519
+#          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+#      - name: Checkout
+#        uses: actions/checkout@v3.3.0
+#      - name: Retrieve packages
+#        run: make get-packages
+#      - name: Build packages
+#        run: make build-image
+#      - name: Extract packages
+#        run: make run-image
+#      - name: Copy packages
+#        run: make copy-packages
